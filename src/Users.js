@@ -46,7 +46,8 @@ function Users() {
                 <button onClick={event => handleDelete(user.id)}>Delete</button>
                 <Link to={"/user/" + user.id}>
                   <button>
-                    <span role="img" aria-label="Pencil">
+                    Edit{" "}
+                    <span aria-label="athena pencil" role="img">
                       ✏️
                     </span>
                   </button>

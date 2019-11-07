@@ -27,12 +27,13 @@ const ManageUser = () => {
       <h1>Add User</h1>
       <form onSubmit={handleSubmit}>
         <Input
+          label="Name"
           id="name"
-          type="text"
           onChange={handleUserChange}
           value={user.name}
         />
         <Input
+          label="Email"
           id="email"
           type="email"
           onChange={handleUserChange}

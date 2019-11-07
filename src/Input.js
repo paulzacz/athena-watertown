@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function Input(props) {
   const { id, onChange, value, label, type } = props;
@@ -10,5 +11,17 @@ function Input(props) {
     </div>
   );
 }
+
+Input.propTypes = {
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(["text", "email", "number", "password"])
+};
+
+Input.defaultProps = {
+  type: "text"
+};
 
 export default Input;
