@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-
-import { deleteUser, getUsers } from "./api/userApi";
+import React, { useState, useEffect } from "react";
+import { getUsers, deleteUser } from "./api/userApi";
 
 function App() {
   const [users, setUsers] = useState([]);
 
+  // useEffect runs by default after every render.
   useEffect(() => {
-    getUsers().then(dbUsers => setUsers(dbUsers));
+    // Using _users to avoid naming confusion with users above
+    getUsers().then(_users => setUsers(_users));
   }, []);
 
   const h1Style = {
@@ -27,6 +28,7 @@ function App() {
       <h1 className="header" style={h1Style}>
         Users
       </h1>
+      {/* Display user data in a table with headers for id, name, and email */}
       <table>
         <thead>
           <tr>

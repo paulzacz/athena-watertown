@@ -1,20 +1,21 @@
-// API proxy
+// API proxy (make HTTP calls for my app kthxbye)
 
-export async function getUsers() {
-  const response = await fetch("http://localhost:3001/users");
-  if (response.ok) {
-    return response.json();
-  }
-  throw new Error("Bad network response.");
+export function getUsers() {
+  return fetch("http://localhost:3001/users").then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error("Bad network response.");
+  });
 }
 
-export async function deleteUser(id) {
-  const url = "http://localhost:3001/users/" + id;
-  const response = await fetch(url, {
+export function deleteUser(userId) {
+  return fetch("http://localhost:3001/users/" + userId, {
     method: "DELETE"
+  }).then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error("Bad network response.");
   });
-  if (response.ok) {
-    return response.json();
-  }
-  throw new Error("Bad network response.");
 }
