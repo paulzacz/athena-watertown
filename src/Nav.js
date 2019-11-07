@@ -8,11 +8,11 @@ const activeStyle = {
 function Nav() {
   return (
     <nav>
-      <NavLink to="/" activeStyle={activeStyle} exact>
+      <NavLink activeStyle={activeStyle} to="/" exact>
         Home
       </NavLink>{" "}
       |{" "}
-      <NavLink to="/users" activeStyle={activeStyle}>
+      <NavLink activeStyle={activeStyle} to="/users">
         Users
       </NavLink>
     </nav>

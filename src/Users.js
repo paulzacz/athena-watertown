@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getUsers, deleteUser } from "./api/userApi";
-import ManageUser from "./ManageUser";
 import { Link } from "react-router-dom";
-
 function Users() {
   const [users, setUsers] = useState([]);
 
@@ -30,8 +28,7 @@ function Users() {
       <h1 className="header" style={h1Style}>
         Users
       </h1>
-      <Link to="/user">Add User</Link>{" "}
-      {/* Exercise: Display user data in a table with headers for id, name, and email */}
+      <Link to="/user">Add User</Link>
       <table className="table">
         <thead>
           <tr>
