@@ -11,8 +11,8 @@ const ManageUser = () => {
     addUser(user);
   }
 
-  function handleChange(event) {
-    // Use computed propery syntax to reference a property using a variable
+  function handleUserChange(event) {
+    // Use computed property syntax to reference a property using a variable.
     setUser({ ...user, [event.target.id]: event.target.value });
   }
 
@@ -26,6 +26,7 @@ const ManageUser = () => {
           <input
             id="name"
             type="text"
+            onChange={handleUserChange}
             value={user.name}
             onChange={handleChange}
           ></input>
@@ -37,6 +38,7 @@ const ManageUser = () => {
           <input
             id="email"
             type="email"
+            onChange={handleUserChange}
             value={user.email}
             onChange={handleChange}
           ></input>

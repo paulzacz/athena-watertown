@@ -21,7 +21,7 @@ export function deleteUser(userId) {
 }
 
 export function addUser(user) {
-  return fetch("http://localhost:3001/users/", {
+  return fetch("http://localhost:3001/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
