@@ -27,15 +27,26 @@ function App() {
       <h1 className="header" style={h1Style}>
         Users
       </h1>
-      <ul>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>id</th>
+            <th>name</th>
+            <th>email</th>
+          </tr>
+        </thead>
         {users.map(user => (
-          <li>
-            {/* Delay execution via arrow func */}
-            <button onClick={event => handleDelete(user.id)}>Delete</button>
-            {user.name}
-          </li>
+          <tr>
+            <td>
+              <button onClick={event => handleDelete(user.id)}>Delete</button>
+            </td>
+            <td>{user.id}</td>
+            <td>{user.name}</td>
+            <td>{user.email}</td>
+          </tr>
         ))}
-      </ul>
+      </table>
       <label htmlFor="firstName">First Name</label>
       <input id="firstName" type="text"></input>
       <p>My app.</p>
