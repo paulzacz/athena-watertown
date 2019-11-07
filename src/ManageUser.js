@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { addUser } from "./api/userApi";
+import { Redirect } from "react-router-dom";
 
 const ManageUser = () => {
   const [user, setUser] = useState({
     name: "",
     email: ""
   });
+  const [saveCompleted, setSaveCompleted] = useState(false);
 
-  function handleSubmit() {
-    addUser(user);
+  async function handleSubmit(event) {
+    event.preventDefault(); // Stop browser from posting back
+    const savedUser = await addUser(user);
+    setSaveCompleted(true);
   }
 
   function handleUserChange(event) {
@@ -18,6 +22,7 @@ const ManageUser = () => {
 
   return (
     <>
+      {saveCompleted && <Redirect to="/users" />}
       <h1>Add User</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -28,7 +33,6 @@ const ManageUser = () => {
             type="text"
             onChange={handleUserChange}
             value={user.name}
-            onChange={handleChange}
           ></input>
         </div>
 
@@ -40,7 +44,6 @@ const ManageUser = () => {
             type="email"
             onChange={handleUserChange}
             value={user.email}
-            onChange={handleChange}
           ></input>
         </div>
 
