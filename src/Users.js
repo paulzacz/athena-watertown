@@ -28,19 +28,20 @@ function Users() {
       <h1 className="header" style={h1Style}>
         Users
       </h1>
-      {/* Display user data in a table with headers for id, name, and email */}
+      {/* Exercise: Display user data in a table with headers for id, name, and email */}
       <table className="table">
         <thead>
           <tr>
             <th></th>
-            <th>id</th>
-            <th>name</th>
-            <th>email</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
           </tr>
         </thead>
         <tbody>
           {users.map(user => (
             <tr key={user.id}>
+              {/* Delay execution via arrow func */}
               <td>
                 <button onClick={event => handleDelete(user.id)}>Delete</button>
               </td>
