@@ -1,12 +1,21 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+
+const activeStyle = {
+  color: "#614476"
+};
 
 function Nav() {
   return (
-    <>
-      <a href="/">Home</a>
-      <br />
-      <a href="/users">Users</a>
-    </>
+    <nav>
+      <NavLink to="/" activeStyle={activeStyle} exact>
+        Home
+      </NavLink>{" "}
+      |{" "}
+      <NavLink to="/users" activeStyle={activeStyle}>
+        Users
+      </NavLink>
+    </nav>
   );
 }
 

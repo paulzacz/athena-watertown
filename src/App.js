@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Nav />
-      <Route path="/" component={Users} exact />
+      <Route path="/" component={Home} exact />
       <Route path="/users" component={Users} exact />
       <Route path="/user" component={ManageUser} />
     </>
