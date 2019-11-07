@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { addUser } from "./api/userApi";
 
 const ManageUser = () => {
   const [user, setUser] = useState({
@@ -6,7 +7,15 @@ const ManageUser = () => {
     email: ""
   });
 
-  function handleSubmit(event) {}
+  function handleSubmit() {
+    addUser(user);
+  }
+
+  function handleChange(event) {
+    // Use computed propery syntax to reference a property using a variable
+    setUser({ ...user, [event.target.id]: event.target.value });
+  }
+
   return (
     <>
       <h1>Add User</h1>
@@ -14,13 +23,23 @@ const ManageUser = () => {
         <div>
           <label htmlFor="name">Name</label>
           <br />
-          <input id="name" type="text" value={user.name}></input>
+          <input
+            id="name"
+            type="text"
+            value={user.name}
+            onChange={handleChange}
+          ></input>
         </div>
 
         <div>
           <label htmlFor="email">Email</label>
           <br />
-          <input id="email" type="email" value={user.email}></input>
+          <input
+            id="email"
+            type="email"
+            value={user.email}
+            onChange={handleChange}
+          ></input>
         </div>
 
         <input type="submit" value="Add User" />
