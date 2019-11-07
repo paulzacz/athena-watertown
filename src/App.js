@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import { deleteUser, getUsers } from "./api/userApi";
 
 function App() {
-  const [users, setUsers] = useState([
-    { id: 1, name: "Cory", email: "c@h.com" },
-    { id: 2, name: "Megan", email: "m@c.com" },
-    { id: 3, name: "Tami", email: "t@tonga.com" }
-  ]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getUsers().then(dbUsers => setUsers(dbUsers));
+  }, []);
 
   const h1Style = {
     color: "red",
@@ -13,9 +15,11 @@ function App() {
   };
 
   function handleDelete(id) {
-    // Remove deleted element from users array
-    const newUsers = users.filter(user => user.id !== id);
-    setUsers(newUsers); // update state, so React knows to re-render
+    deleteUser(id).then(() => {
+      // Remove deleted element from users array
+      const newUsers = users.filter(user => user.id !== id);
+      setUsers(newUsers); // update state, so React knows to re-render
+    });
   }
 
   return (
