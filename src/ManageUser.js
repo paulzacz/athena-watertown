@@ -5,23 +5,34 @@ import { Redirect, useRouteMatch } from "react-router-dom";
 import Input from "./Input";
 
 const ManageUser = ({ users, setUsers }) => {
-  const match = useRouteMatch(); // info about the matching URL
+  const match = useRouteMatch(); // info about hte matching URL
   const userId = parseInt(match.params.userId, 10);
   const [user, setUser] = useState({ name: "", email: "" });
+  const [userIndex, setUserIndex] = useState(users.length);
   useEffect(() => {
+    let _userIndex = users.length;
     if (userId) {
-      const userIndex = users.findIndex(u => u.id === userId);
-      if (userIndex >= 0) {
-        setUser(users[userIndex]);
+      _userIndex = users.findIndex(u => u.id === userId);
+      if (_userIndex >= 0) {
+        setUser(users[_userIndex]);
+      } else {
+        _userIndex = users.length;
       }
     }
+    setUserIndex(_userIndex);
   }, [users, userId]);
 
   const [saveCompleted, setSaveCompleted] = useState(false);
   async function handleSubmit(event) {
     event.preventDefault(); // Stop browser from posting back
-    const savedUser = await (!!user.id ? editUser(user) : addUser(user));
-    const newUsers = users.map(u => (u.id === savedUser.id ? savedUser : u));
+    const savedUser = await (userIndex < users.length
+      ? editUser(user)
+      : addUser(user));
+    const newUsers = [
+      ...users.slice(0, userIndex),
+      savedUser,
+      ...users.slice(userIndex + 1, users.size)
+    ];
     setUsers(newUsers);
     setSaveCompleted(true);
   }
@@ -32,7 +43,7 @@ const ManageUser = ({ users, setUsers }) => {
     setUser(newUser);
   }
 
-  const buttonText = (!!user.id ? "Edit" : "Add") + " User";
+  const buttonText = (userIndex < users.length ? "Edit" : "Add") + " User";
 
   return (
     <>
