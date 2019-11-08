@@ -1,25 +1,38 @@
-import React, { useState } from "react";
-import { addUser } from "./api/userApi";
-import { Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { addUser, editUser } from "./api/userApi";
+import { Redirect, useRouteMatch } from "react-router-dom";
 import Input from "./Input";
 
-const ManageUser = () => {
-  const [user, setUser] = useState({
-    name: "",
-    email: ""
-  });
-  const [saveCompleted, setSaveCompleted] = useState(false);
+const ManageUser = ({ users, setUsers }) => {
+  const match = useRouteMatch(); // info about the matching URL
+  const userId = parseInt(match.params.userId, 10);
+  const [user, setUser] = useState({ name: "", email: "" });
+  useEffect(() => {
+    if (userId) {
+      const userIndex = users.findIndex(u => u.id === userId);
+      if (userIndex >= 0) {
+        setUser(users[userIndex]);
+      }
+    }
+  }, [users, userId]);
 
+  const [saveCompleted, setSaveCompleted] = useState(false);
   async function handleSubmit(event) {
     event.preventDefault(); // Stop browser from posting back
-    await addUser(user);
+    const savedUser = await (!!user.id ? editUser(user) : addUser(user));
+    const newUsers = users.map(u => (u.id === savedUser.id ? savedUser : u));
+    setUsers(newUsers);
     setSaveCompleted(true);
   }
 
   function handleUserChange(event) {
+    const newUser = { ...user, [event.target.id]: event.target.value };
     // Use computed property syntax to reference a property using a variable.
-    setUser({ ...user, [event.target.id]: event.target.value });
+    setUser(newUser);
   }
+
+  const buttonText = (!!user.id ? "Edit" : "Add") + " User";
 
   return (
     <>
@@ -39,10 +52,15 @@ const ManageUser = () => {
           onChange={handleUserChange}
           value={user.email}
         />
-        <input type="submit" value="Add User" />
+        <input type="submit" value={buttonText} />
       </form>
     </>
   );
+};
+
+ManageUser.propTypes = {
+  users: PropTypes.array.isRequired,
+  setUsers: PropTypes.func
 };
 
 export default ManageUser;
