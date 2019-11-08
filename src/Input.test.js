@@ -4,10 +4,14 @@ import { render } from "@testing-library/react";
 
 describe("Input", () => {
   it("should tie the label to the input via htmlFor", () => {
-    const { getByLabelText, debug } = render(
-      <Input id="testID" onChange={() => {}} value="foobar" label="testLabel" />
+    // arrange
+
+    // act
+    const { getByLabelText } = render(
+      <Input id="test" label="test" onChange={() => {}} value="" />
     );
-    // Assert that the label has a value of testLabel.
-    getByLabelText("testLabel");
+
+    // assert that the label has a value of test.
+    getByLabelText("test");
   });
 });
